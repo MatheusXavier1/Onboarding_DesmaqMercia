@@ -1,18 +1,47 @@
-#include <Arduino.h>
+//#include <Keypad.h>
+//#include <Arduino.h>
+//Falta comentar
+//Falta adicionar as bibliotecas
+char caractere;
+char tot[3] = {};
+char total[3] = {};
+char teclas[4][4] = {
 
-// put function declarations here:
-int myFunction(int, int);
+    {'1','2','3','A'},  
+		{'4','5','6','B'}, 
+		{'7','8','9','C'}, 
+		{'*','0','#','D'} 
+
+};
+
+int n = 0;
+
+byte PinosLinha [4] = {12,11,10,9};
+byte PinosColuna [4] = {8,7,6,5};
+
+Keypad teclado (makeKeymap(teclas),PinosLinha,PinosColuna,4,4);
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+
+Serial.begin(9600);
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  
+  caractere = teclado.getKey();
+    
+    if(caractere){
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+      Serial.print("Caractere: ");
+      Serial.println(caractere);
+
+      total[n] = caractere;
+      n++;
+      Serial.print("total: ");
+      Serial.println(total)
+      if(n==3){
+        Serial.print("FIM");
+      }
+  }
 }
